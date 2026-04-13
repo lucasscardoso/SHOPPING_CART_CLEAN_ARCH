@@ -1,0 +1,7 @@
+services:
+  redis-cart:
+    image: redis:7.4-alpine
+    container_name: redis-shopping-cart
+    ports:
+      - "6379:6379"
+    restart: always
