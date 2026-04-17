@@ -7,7 +7,7 @@ import java.util.List;
 public interface ShoppingCartRepository {
 
     Cart save(Cart cart);
-    List<Cart> listClientProducts(Long clientId);
+    List<Cart> findAllByClientId(Long clientId);
     void removerItem(Long cartId);
     void limpaCart(Long clientId);
 }

@@ -1,14 +1,14 @@
 # SHOPPING_CART_CLEAN_ARCH
 
-### Esse cARRINHO foi desenvolvido utilizando conceitos de Clean Architecture onde explorei as melhores formas de aplicar esse pattern,foi criada de forma desacoplada porem ligada com outraS Api's: CRUD_CADASTRO_DE_PESSOAS_CLEAN_ARCH_HEXAGONAL e PRODUTOS_CLEAN_ARCH, onde uma pessoa logada nesse sistema pode cadastrar, consultar e alterar produtos o Shopping cart vai permitir adicionar esses produtos em um carrinho de compras onde utilizei Redis para salvar esse carrinho por algumas horas/dia e excluir automaticamente o mesmo, vizando estudar e aprender sobre um banco NoSQL utilizando armazenamento em de dados em memoria.
-.
+### Esse Carrinho foi desenvolvido utilizando conceitos de Clean Architecture onde explorei as melhores formas de aplicar esse pattern,foi criada de forma desacoplada porem ligada com outras Api's: CRUD_CADASTRO_DE_PESSOAS_CLEAN_ARCH_HEXAGONAL e PRODUTOS_CLEAN_ARCH, onde uma pessoa logada nesse sistema pode cadastrar, consultar e alterar produtos o Shopping cart vai permitir adicionar esses produtos em um carrinho de compras onde utilizei Redis para salvar esse carrinho por algumas horas/dia e excluir automaticamente o mesmo caso o tempo de vida dele expire, vizando estudar e aprender sobre um banco NoSQL utilizando armazenamento em memoria dos dados.
+
 
 
 ## Requisitos:
 - apache-maven-3.9.9 - [Download](https://maven.apache.org/download.cgi)
 - Java 17 - [Download](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 - FrameWork - Spring Boot 3.3.4
-- Docker Desktop (Rancher Desktop) - o banco foi configurado em um docker-compose. yml e esta junto aqui no repositorio os demais bancos estao [CRUD_CADASTRO_DE_PESSOAS_CLEAN_ARCH_HEXAGONAL](https://github.com/lucasscardoso/CRUD_CADASTRO_DE_PESSOAL_CLEAN_ARCH_HEXAGONAL) nesse repositorio esta a parte de clientes e o banco de clientes/produtos, repositorio de produtos: [PRODUTOS_CLEAN_ARCH](https://github.com/lucasscardoso/CRUD_CADASTRO_DE_PRODUTOSL_CLEAN_ARCH_HEXAGONAL) .
+- Docker Desktop (Rancher Desktop) - o banco foi configurado em um docker-compose. yml e esta junto aqui no repositorio, os demais bancos estao em [CRUD_CADASTRO_DE_PESSOAS_CLEAN_ARCH_HEXAGONAL](https://github.com/lucasscardoso/CRUD_CADASTRO_DE_PESSOAL_CLEAN_ARCH_HEXAGONAL) nesse repositorio esta a parte de clientes e o banco de clientes/produtos, repositorio de produtos: [PRODUTOS_CLEAN_ARCH](https://github.com/lucasscardoso/CRUD_CADASTRO_DE_PRODUTOSL_CLEAN_ARCH_HEXAGONAL) .
 - Comandos basicos de docker - [Link](https://github.com/lucasscardoso/Docker) 
 -  o Banco foi criado e testado utilizando uma imagem do Redis: redis:7.4-alpine.
 

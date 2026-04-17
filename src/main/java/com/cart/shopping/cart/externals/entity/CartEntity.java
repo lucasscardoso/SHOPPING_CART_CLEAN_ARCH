@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.index.Indexed;
 
 import java.io.Serializable;
 
-@RedisHash(value = "Cart", timeToLive = 60)
+@RedisHash(value = "cart", timeToLive = 60)
 public class CartEntity implements Serializable {
 
     @Id
