@@ -20,6 +20,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/save").permitAll()
+                        .requestMatchers("/get/*").permitAll()
                         .anyRequest().authenticated()
                 );
 

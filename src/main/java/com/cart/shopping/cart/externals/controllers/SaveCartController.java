@@ -2,8 +2,9 @@ package com.cart.shopping.cart.externals.controllers;
 
 
 import com.cart.shopping.cart.core.entity.Cart;
+import com.cart.shopping.cart.core.shared.dto.SaveCartRequest;
 import com.cart.shopping.cart.core.shared.dto.ShoppingCartDto;
-import com.cart.shopping.cart.core.shared.useCase.IShoppingCart;
+import com.cart.shopping.cart.core.shared.useCase.ISaveShoppingCart;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/save")
 public class SaveCartController {
 
-    private final IShoppingCart<Cart,ShoppingCartDto> shoppingCartDto;
+    private final ISaveShoppingCart shoppingCartDto;
 
 
-    public SaveCartController(IShoppingCart shoppingCartDto) {
+    public SaveCartController(ISaveShoppingCart shoppingCartDto) {
         this.shoppingCartDto = shoppingCartDto;
     }
 
 
     @PostMapping()
-    public ShoppingCartDto saveCart(@RequestBody  Cart domain){
+    public ShoppingCartDto saveCart(@RequestBody SaveCartRequest domain){
         System.out.println("passou aqui");
        return shoppingCartDto.executar(domain);
     }
