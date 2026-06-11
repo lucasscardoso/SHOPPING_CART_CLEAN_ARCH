@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class SaveShoppingCart implements ISaveShoppingCart {
@@ -34,23 +35,50 @@ public class SaveShoppingCart implements ISaveShoppingCart {
                 throw new IllegalArgumentException("Cliente com id: " + entrada.clientId() + "Não localizado!");
             }
 
+          //  List<Cart> itensExistentes = shoppingCartRepository.findAllByClientId(entrada.clientId());
+
             for (CartItemRequest itemRequest : entrada.itens()) {
                 ProductDto produto = iProductFeign.findById(itemRequest.prodId());
-                Double valorTotal = produto.preco() * itemRequest.quantity();
 
-                Cart cartRedis = new Cart();
-                cartRedis.setClientId(entrada.clientId());
-                cartRedis.setProdId(itemRequest.prodId());
-                cartRedis.setQuantity(itemRequest.quantity());
-                cartRedis.setTotalValue(valorTotal);
+                Optional<Cart> itensExistentes = shoppingCartRepository.findByClientIdAndProdId(entrada.clientId(), itemRequest.prodId());
+                Cart itemSubstituto = itensExistentes.stream()
+                        .filter(cart -> cart.getProdId().equals(itemRequest.prodId()))
+                        .findFirst()
+                        .orElse(null);
 
+                Cart cartRedis;
+
+                if (itemSubstituto != null) {
+
+                    cartRedis = itemSubstituto;
+                    int novaQuantidade = cartRedis.getQuantity() + itemRequest.quantity();
+                    cartRedis.setQuantity(novaQuantidade);
+                    cartRedis.setTotalValue(produto.preco() * novaQuantidade);
+                } else {
+                    cartRedis = new Cart();
+                    cartRedis.setClientId(entrada.clientId());
+                    cartRedis.setProdId(itemRequest.prodId());
+                    cartRedis.setQuantity(itemRequest.quantity());
+                    cartRedis.setTotalValue(produto.preco() * itemRequest.quantity());
+                }
                 shoppingCartRepository.save(cartRedis);
             }
 
             List<Cart> allClientItens = shoppingCartRepository.findAllByClientId(entrada.clientId());
 
             List<ProductDto> listaProdutos = allClientItens.stream()
-                    .map(item -> iProductFeign.findById(item.getProdId()))
+                    .map(item -> {
+                        ProductDto produtoFeign = iProductFeign.findById(item.getProdId());
+
+                        if(produtoFeign == null) return null;
+                            return new ProductDto(
+                                    produtoFeign.id(),
+                                    produtoFeign.nome(),
+                                    item.getQuantity(),
+                                    produtoFeign.preco()
+                            );
+
+                    })
                     .filter(Objects::nonNull)
                     .toList();
 

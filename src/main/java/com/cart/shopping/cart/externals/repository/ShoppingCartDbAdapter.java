@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -24,6 +25,12 @@ public class ShoppingCartDbAdapter implements ShoppingCartRepository {
     }
 
     @Override
+    public Optional<Cart> findByClientIdAndProdId(Long clientId, Long prodId) {
+        return redisRepository.findByClientIdAndProdId(clientId,prodId).map(this::toDomain);
+    }
+
+
+    @Override
     public void removerItem(Long cartId) {
 
     }
@@ -36,7 +43,14 @@ public class ShoppingCartDbAdapter implements ShoppingCartRepository {
     @Override
     public Cart save(Cart cart){
         CartEntity entity = toEntity(cart);
-        entity.setCartId((cart.getClientId() * 1000000L) + cart.getProdId());
+
+        if (cart.getCartId() == null) {
+            entity.setCartId((cart.getClientId() * 1000000L) + cart.getProdId());
+        } else {
+            entity.setCartId(cart.getCartId());
+            redisRepository.deleteById(cart.getCartId());
+        }
+
         redisRepository.save(entity);
         Cart response = toDomain(entity);
         return response;
@@ -57,6 +71,8 @@ public class ShoppingCartDbAdapter implements ShoppingCartRepository {
 
     private CartEntity toEntity(Cart domain) {
         CartEntity entity = new CartEntity();
+        entity.setCartId(domain.getCartId());
+        entity.setCartId(domain.getCartId());
         entity.setClientId(domain.getClientId());
         entity.setProdId(domain.getProdId());
         entity.setQuantity(domain.getQuantity());

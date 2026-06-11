@@ -12,7 +12,7 @@ public class CartEntity implements Serializable {
 
     @Id
     private Long cartId;
-    
+    @Indexed
     private Long prodId;
     @Indexed
     private Long clientId;

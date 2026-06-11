@@ -47,7 +47,16 @@ public class GetShoppingCart implements IGetShoppingCart {
 
             List<ProductDto> listaProdutos = allClientItens.stream().map( item -> {
                 try{
-                    return iProductFeign.findById(item.getProdId());
+                     ProductDto productFeign = iProductFeign.findById(item.getProdId());
+                     if(productFeign == null) return null;
+
+                     return new ProductDto(
+                             productFeign.id(),
+                             productFeign.nome(),
+                             item.getQuantity(),
+                             productFeign.preco()
+                     );
+
                 } catch (Exception e) {
                     return null;
                 }
