@@ -21,6 +21,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/save").permitAll()
                         .requestMatchers("/get/*").permitAll()
+                        .requestMatchers("/delete/*").permitAll()
                         .anyRequest().authenticated()
                 );
 

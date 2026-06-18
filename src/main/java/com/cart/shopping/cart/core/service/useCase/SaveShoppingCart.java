@@ -1,11 +1,11 @@
-package com.cart.shopping.cart.core.service;
+package com.cart.shopping.cart.core.service.useCase;
 
 import com.cart.shopping.cart.core.entity.Cart;
 import com.cart.shopping.cart.core.interfaces.feign.IProductFeignClient;
 import com.cart.shopping.cart.core.interfaces.feign.IUserFeignClient;
 import com.cart.shopping.cart.core.repository.ShoppingCartRepository;
 import com.cart.shopping.cart.core.shared.dto.*;
-import com.cart.shopping.cart.core.shared.useCase.ISaveShoppingCart;
+import com.cart.shopping.cart.core.shared.interfaces.ISaveShoppingCart;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

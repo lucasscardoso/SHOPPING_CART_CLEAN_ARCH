@@ -32,11 +32,17 @@ public class ShoppingCartDbAdapter implements ShoppingCartRepository {
 
     @Override
     public void removerItem(Long cartId) {
+        redisRepository.deleteByClientId(cartId);
 
     }
 
     @Override
     public void limpaCart(Long clientId) {
+       List<CartEntity> itemList = redisRepository.findAllByClientId(clientId);
+        if(itemList != null && !itemList.isEmpty()){
+            redisRepository.deleteAll(itemList);
+        }
+        System.out.println("Carrinho deletado com sucesso!");
 
     }
 

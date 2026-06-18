@@ -1,12 +1,9 @@
 package com.cart.shopping.cart.externals.controllers;
 
 
-import com.cart.shopping.cart.core.entity.Cart;
 import com.cart.shopping.cart.core.shared.dto.ShoppingCartDto;
 import com.cart.shopping.cart.core.shared.dto.ShoppingCartRequest;
-import com.cart.shopping.cart.core.shared.useCase.IGetShoppingCart;
-import com.cart.shopping.cart.core.shared.useCase.IShoppingCart;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.cart.shopping.cart.core.shared.interfaces.IGetShoppingCart;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

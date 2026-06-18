@@ -15,4 +15,5 @@ public interface IShoppingCartRepository extends CrudRepository<CartEntity, Long
     List<CartEntity> findAllByClientId(Long clientId);
     Optional<CartEntity> findByClientIdAndProdId(Long clientId, Long prodId);
 
+    void deleteByClientId(Long clientId);
 }
